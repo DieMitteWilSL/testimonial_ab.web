@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Thomas Abbt – Testimonial Banner</title>
+  <title>Andreas Breitenmoser – Testimonial Banner</title>
   <style>
     :root {
       --text: #111111;
@@ -524,7 +524,7 @@
 
         <div class="field">
           <label for="quote">Zitat</label>
-          <textarea id="quote" maxlength="150" placeholder="Thomas ist ein Macher, der ganz genau weiss, wo im Gewerbe und auch bei den Familien der Schuh drückt!"></textarea>
+          <textarea id="quote" maxlength="150" placeholder="Andi packt an - mit seiner Erfahrung im Stadtrat kennt er die Anliegen der Stadt."></textarea>
           <div class="counter"><span id="quoteCount">0</span>/150 Zeichen</div>
         </div>
 
@@ -573,7 +573,7 @@
     const CANVAS_W = 1080;
     const CANVAS_H = 1350;
 
-    const BG_URL = 'https://diemittewilsl.github.io/testimonial_ta.web/Thomas%20Abbt_Quote_1080x1350.png';
+    const BG_URL = 'https://diemittewilsl.github.io/testimonial_ab.web/Andreas%20Breitenmoser_Quote_1080x1350.png';
 
     const SUPPORTER_CIRCLE = { cx: 181, cy: 1145, r: 108 };
     const SUPPORTER_BORDER = { width: 8, color: '#f3f4f6' };
@@ -765,7 +765,7 @@
     }
 
     function drawQuoteText() {
-      const fallback = 'Thomas ist ein Macher, der ganz genau weiss wo im Gewerbe und auch bei den Familien der Schuh drückt!';
+      const fallback = 'Andi packt an - mit seiner Erfahrung im Stadtrat kennt er die Anliegen der Stadt.';
       const rawText = (inputQuote.value || fallback).trim();
       const text = rawText || fallback;
 
@@ -934,7 +934,7 @@
     btnDownload.addEventListener('click', () => {
       try {
         const a = document.createElement('a');
-        a.download = 'ThomasAbbt_Testimonial_Banner.png';
+        a.download = 'AndreasBreitenmoser_Testimonial_Banner.png';
         a.href = canvas.toDataURL('image/png');
         a.click();
         hideStatus();
@@ -946,13 +946,13 @@
     btnShare.addEventListener('click', async () => {
       try {
         const blob = await canvasToBlob(canvas, 'image/png');
-        const file = new File([blob], 'ThomasAbbt_Testimonial_Banner.png', { type: 'image/png' });
+        const file = new File([blob], 'AndreasBreitenmoser_Testimonial_Banner.png', { type: 'image/png' });
 
         if (navigator.canShare({ files: [file] })) {
           await navigator.share({
             files: [file],
-            title: 'Thomas Abbt Testimonial Banner',
-            text: 'Mein persönliches Banner für Thomas Abbt'
+            title: 'Andreas Breitenmoser Testimonial Banner',
+            text: 'Mein persönliches Banner für Andreas Breitenmoser'
           });
           hideStatus();
         } else {
