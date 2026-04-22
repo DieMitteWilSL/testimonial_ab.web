@@ -1,0 +1,1024 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Thomas Abbt – Testimonial Banner</title>
+  <style>
+    :root {
+      --text: #111111;
+      --muted: #5f6368;
+      --panel: #ffffff;
+      --line: #e5e7eb;
+      --shadow: 0 12px 30px rgba(0,0,0,.08);
+      --radius: 18px;
+      --danger-bg: #fff1f2;
+      --danger-text: #991b1b;
+      --danger-line: #fecdd3;
+      --brand-yellow: #f5ad1b;
+      --blue: #004289;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      min-height: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: #ffffff;
+      padding: 16px 12px;
+    }
+
+    .wrap {
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      display: grid;
+      gap: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(320px, 390px) minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h2 {
+      margin: 0 0 10px;
+      font-size: 22px;
+      line-height: 1.2;
+    }
+
+    .intro {
+      margin: 0 0 14px;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .field label {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .hint, .counter {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    input[type="text"],
+    textarea,
+    input[type="file"] {
+      width: 100%;
+      border: 1px solid #d7dbe1;
+      border-radius: 12px;
+      padding: 11px 12px;
+      font: inherit;
+      background: #fff;
+    }
+
+    input[type="file"] {
+      border-style: dashed;
+      background: #fafafa;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      cursor: pointer;
+      accent-color: var(--brand-yellow);
+    }
+
+    .button-row,
+    .download-wrap {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      appearance: none;
+      border: 1px solid transparent;
+      background: #fff;
+      color: #111;
+      border-radius: 14px;
+      padding: 12px 18px;
+      min-height: 48px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition:
+        transform .18s ease,
+        box-shadow .18s ease,
+        background .18s ease,
+        border-color .18s ease,
+        opacity .18s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,.06);
+    }
+
+    button:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(0,0,0,.10);
+    }
+
+    button:active:not(:disabled) {
+      transform: translateY(0);
+      box-shadow: 0 6px 12px rgba(0,0,0,.08);
+    }
+
+    button:disabled {
+      opacity: .45;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    #reset {
+      background: #f8fafc;
+      color: #1f2937;
+      border-color: #dbe3ea;
+    }
+
+    #reset:hover:not(:disabled) {
+      background: #eef3f8;
+      border-color: #cfd8e3;
+    }
+
+    #download {
+      background: linear-gradient(135deg, #f5ad1b 0%, #eb9b00 100%);
+      border: none;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 800;
+      padding: 12px 20px;
+      box-shadow: 0 10px 22px rgba(235, 155, 0, .24);
+    }
+
+    #shareBtn {
+      display: none;
+      background: linear-gradient(135deg, #25D366 0%, #1fb856 100%);
+      border: none;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 800;
+      padding: 12px 20px;
+      box-shadow: 0 10px 22px rgba(37, 211, 102, .22);
+    }
+
+    .tips {
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .tips li + li { margin-top: 4px; }
+
+    .canvas-card {
+      padding: 12px;
+      min-width: 0;
+    }
+
+    .canvas-frame {
+      background: linear-gradient(180deg, #fff 0%, #faf6eb 100%);
+      border: 1px solid #f0e4c8;
+      border-radius: 16px;
+      padding: 10px;
+    }
+
+    canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+      background: #fff;
+      border-radius: 10px;
+      border: 1px solid #ececec;
+      touch-action: none;
+      aspect-ratio: 1080 / 1350;
+    }
+
+    .download-wrap {
+      justify-content: center;
+      margin-top: 14px;
+    }
+
+    .download-wrap button {
+      min-width: 220px;
+    }
+
+    .status {
+      display: none;
+      margin-top: 12px;
+      padding: 11px 12px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.4;
+      border: 1px solid var(--danger-line);
+      background: var(--danger-bg);
+      color: var(--danger-text);
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (min-width: 3040px) {
+      body {
+        padding: 40px 32px;
+      }
+
+      .wrap {
+        max-width: 2400px;
+        gap: 28px;
+      }
+
+      .grid {
+        grid-template-columns: minmax(520px, 700px) minmax(0, 1fr);
+        gap: 28px;
+      }
+
+      .card {
+        padding: 26px;
+        border-radius: 18px;
+      }
+
+      .card h2 {
+        font-size: 32px;
+      }
+
+      .intro {
+        font-size: 17px;
+        line-height: 1.6;
+      }
+
+      .field {
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+
+      .field label {
+        font-size: 16px;
+      }
+
+      .hint,
+      .counter,
+      .footer-note {
+        font-size: 14px;
+      }
+
+      input[type="text"],
+      textarea,
+      input[type="file"] {
+        font-size: 16px;
+        padding: 14px 15px;
+        border-radius: 14px;
+      }
+
+      textarea {
+        min-height: 120px;
+      }
+
+      .canvas-card {
+        padding: 16px;
+      }
+
+      .canvas-frame {
+        padding: 16px;
+        border-radius: 18px;
+      }
+
+      .download-wrap {
+        margin-top: 18px;
+        gap: 12px;
+      }
+
+      .download-wrap button {
+        min-width: 280px;
+      }
+
+      button {
+        min-height: 56px;
+        padding: 14px 22px;
+        border-radius: 15px;
+        font-size: 16px;
+      }
+
+      #download,
+      #shareBtn {
+        font-size: 16px;
+        padding: 14px 22px;
+      }
+    }
+
+    @media (max-width: 1100px) {
+      body {
+        padding: 12px 10px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .canvas-card {
+        order: -1;
+      }
+
+      .card {
+        padding: 14px;
+      }
+
+      .canvas-frame {
+        padding: 8px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 8px;
+      }
+
+      .wrap {
+        gap: 10px;
+      }
+
+      .card {
+        padding: 12px;
+        border-radius: 14px;
+      }
+
+      .card h2 {
+        margin-bottom: 8px;
+        font-size: 20px;
+      }
+
+      .intro {
+        margin-bottom: 10px;
+        font-size: 13px;
+        line-height: 1.45;
+      }
+
+      .field {
+        gap: 5px;
+        margin-bottom: 10px;
+      }
+
+      .canvas-card {
+        padding: 10px;
+      }
+
+      .canvas-frame {
+        padding: 7px;
+        border-radius: 14px;
+      }
+
+      .download-wrap,
+      .button-row {
+        flex-direction: column;
+      }
+
+      .download-wrap button,
+      .button-row button {
+        width: 100%;
+        min-width: 0;
+      }
+
+      button {
+        min-height: 46px;
+        padding: 11px 14px;
+      }
+
+      #download,
+      #shareBtn {
+        font-size: 14px;
+        padding: 11px 16px;
+      }
+
+      .footer-note {
+        margin-top: 10px;
+        font-size: 12px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 6px;
+      }
+
+      .wrap {
+        gap: 8px;
+      }
+
+      .card {
+        padding: 10px;
+        border-radius: 12px;
+      }
+
+      .card h2 {
+        font-size: 18px;
+      }
+
+      .intro,
+      .hint,
+      .counter {
+        font-size: 12px;
+      }
+
+      .field {
+        margin-bottom: 8px;
+      }
+
+      input[type="text"],
+      textarea,
+      input[type="file"] {
+        padding: 10px 11px;
+        border-radius: 10px;
+      }
+
+      textarea {
+        min-height: 80px;
+      }
+
+      .canvas-card {
+        padding: 8px;
+      }
+
+      .canvas-frame {
+        padding: 6px;
+        border-radius: 12px;
+      }
+
+      canvas {
+        border-radius: 8px;
+      }
+
+      button {
+        min-height: 44px;
+        padding: 10px 12px;
+        border-radius: 12px;
+      }
+
+      #download,
+      #shareBtn {
+        font-size: 13px;
+        padding: 10px 14px;
+      }
+
+      .download-wrap {
+        gap: 8px;
+        margin-top: 10px;
+      }
+
+      .footer-note {
+        margin-top: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="grid">
+      <div class="card">
+        <h2>Banner gestalten</h2>
+        <p class="intro">
+          Foto hochladen, Zitat erfassen und Banner direkt als PNG exportieren.
+        </p>
+
+        <div class="field">
+          <label for="photo">Foto Unterstützer/in</label>
+          <input id="photo" type="file" accept="image/*" />
+          <div class="hint">Das Foto erscheint unten links im runden Kreis und kann mit Maus oder Finger verschoben werden.</div>
+        </div>
+
+        <div class="field">
+          <label for="quote">Zitat</label>
+          <textarea id="quote" maxlength="150" placeholder="Thomas ist ein Macher, der ganz genau weiss, wo im Gewerbe und auch bei den Familien der Schuh drückt!"></textarea>
+          <div class="counter"><span id="quoteCount">0</span>/150 Zeichen</div>
+        </div>
+
+        <div class="field">
+          <label for="supporterName">Name</label>
+          <input id="supporterName" type="text" maxlength="40" placeholder="Vorname Nachname" />
+          <div class="counter"><span id="nameCount">0</span>/40 Zeichen</div>
+        </div>
+
+        <div class="field">
+          <label for="supporterRole">Funktion</label>
+          <input id="supporterRole" type="text" maxlength="40" placeholder="Funktion/Ergänzend" />
+          <div class="counter"><span id="roleCount">0</span>/40 Zeichen</div>
+        </div>
+
+        <div class="field">
+          <label for="zoom">Foto-Zoom</label>
+          <input id="zoom" type="range" min="1" max="3" step="0.01" value="1" disabled />
+        </div>
+
+        <div class="button-row">
+          <button id="reset" disabled>Foto zurücksetzen</button>
+        </div>
+
+        <ul class="tips"></ul>
+
+        <div id="status" class="status"></div>
+      </div>
+
+      <div class="card canvas-card">
+        <div class="canvas-frame">
+          <canvas id="c"></canvas>
+        </div>
+
+        <div class="download-wrap">
+          <button id="download">⬇ Banner als PNG herunterladen</button>
+          <button id="shareBtn">📣 Jetzt teilen</button>
+        </div>
+
+        <div class="footer-note">Vielen Dank für die Unterstützung!</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const CANVAS_W = 1080;
+    const CANVAS_H = 1350;
+
+    const BG_URL = 'https://diemittewilsl.github.io/testimonial_ta.web/Thomas%20Abbt_Quote_1080x1350.png';
+
+    const SUPPORTER_CIRCLE = { cx: 181, cy: 1145, r: 108 };
+    const SUPPORTER_BORDER = { width: 8, color: '#f3f4f6' };
+
+    const QUOTE_BOX = {
+      x: 32,
+      y: 420,
+      w: 600,
+      h: 420
+    };
+
+    const canvas = document.getElementById('c');
+    const ctx = canvas.getContext('2d');
+    canvas.width = CANVAS_W;
+    canvas.height = CANVAS_H;
+
+    const inputPhoto = document.getElementById('photo');
+    const inputQuote = document.getElementById('quote');
+    const inputName = document.getElementById('supporterName');
+    const inputRole = document.getElementById('supporterRole');
+    const zoomEl = document.getElementById('zoom');
+    const btnReset = document.getElementById('reset');
+    const btnDownload = document.getElementById('download');
+    const btnShare = document.getElementById('shareBtn');
+    const statusEl = document.getElementById('status');
+
+    const quoteCount = document.getElementById('quoteCount');
+    const nameCount = document.getElementById('nameCount');
+    const roleCount = document.getElementById('roleCount');
+
+    const bgImg = new Image();
+    bgImg.crossOrigin = 'anonymous';
+
+    let bgLoaded = false;
+    let userImg = null;
+
+    let baseScale = 1;
+    let zoom = 1;
+    let offsetX = 0;
+    let offsetY = 0;
+
+    let dragging = false;
+    let lastX = 0;
+    let lastY = 0;
+
+    function updateCounters() {
+      quoteCount.textContent = inputQuote.value.length;
+      nameCount.textContent = inputName.value.length;
+      roleCount.textContent = inputRole.value.length;
+    }
+
+    function clamp(v, min, max) {
+      return Math.min(max, Math.max(min, v));
+    }
+
+    function getCanvasPoint(e) {
+      const rect = canvas.getBoundingClientRect();
+      return {
+        x: (e.clientX - rect.left) * (canvas.width / rect.width),
+        y: (e.clientY - rect.top) * (canvas.height / rect.height)
+      };
+    }
+
+    function isInsideCircle(x, y, circle) {
+      const dx = x - circle.cx;
+      const dy = y - circle.cy;
+      return (dx * dx + dy * dy) <= (circle.r * circle.r);
+    }
+
+    function loadImageFromFile(file) {
+      return new Promise((resolve, reject) => {
+        const url = URL.createObjectURL(file);
+        const img = new Image();
+
+        img.onload = () => {
+          URL.revokeObjectURL(url);
+          resolve(img);
+        };
+
+        img.onerror = () => {
+          URL.revokeObjectURL(url);
+          reject(new Error('Bild konnte nicht geladen werden'));
+        };
+
+        img.src = url;
+      });
+    }
+
+    function canvasToBlob(canvas, type = 'image/png', quality) {
+      return new Promise((resolve, reject) => {
+        try {
+          canvas.toBlob((blob) => {
+            if (blob) resolve(blob);
+            else reject(new Error('Blob konnte nicht erstellt werden'));
+          }, type, quality);
+        } catch (err) {
+          reject(err);
+        }
+      });
+    }
+
+    function setStatus(message) {
+      statusEl.style.display = 'block';
+      statusEl.textContent = message;
+    }
+
+    function hideStatus() {
+      statusEl.style.display = 'none';
+      statusEl.textContent = '';
+    }
+
+    function setupInitialTransform() {
+      zoom = 1;
+      zoomEl.value = '1';
+
+      const d = SUPPORTER_CIRCLE.r * 2;
+      const iw = userImg.naturalWidth;
+      const ih = userImg.naturalHeight;
+
+      baseScale = Math.max(d / iw, d / ih) * 1.08;
+      offsetX = 0;
+      offsetY = 0;
+
+      clampOffsets();
+    }
+
+    function clampOffsets() {
+      if (!userImg) return;
+
+      const d = SUPPORTER_CIRCLE.r * 2;
+      const scale = baseScale * zoom;
+      const w = userImg.naturalWidth * scale;
+      const h = userImg.naturalHeight * scale;
+
+      const maxX = Math.max(0, (w - d) / 2);
+      const maxY = Math.max(0, (h - d) / 2);
+
+      offsetX = clamp(offsetX, -maxX, maxX);
+      offsetY = clamp(offsetY, -maxY, maxY);
+    }
+
+    function wrapTextByWidth(context, text, maxWidth) {
+      const words = text.split(/\s+/).filter(Boolean);
+      if (!words.length) return [''];
+
+      const lines = [];
+      let current = words[0];
+
+      for (let i = 1; i < words.length; i++) {
+        const test = current + ' ' + words[i];
+        if (context.measureText(test).width <= maxWidth) {
+          current = test;
+        } else {
+          lines.push(current);
+          current = words[i];
+        }
+      }
+
+      lines.push(current);
+      return lines;
+    }
+
+    function fitQuoteText(text, maxWidth, maxHeight) {
+      let fontSize = 60;
+      const minFontSize = 28;
+      let lines = [];
+
+      while (fontSize >= minFontSize) {
+        ctx.font = `700 ${fontSize}px Arial`;
+        lines = wrapTextByWidth(ctx, text, maxWidth);
+
+        const lineHeight = Math.round(fontSize * 1.18);
+        const totalHeight = lines.length * lineHeight;
+
+        if (totalHeight <= maxHeight && lines.length <= 6) {
+          return { fontSize, lines, lineHeight };
+        }
+
+        fontSize -= 2;
+      }
+
+      ctx.font = `700 ${minFontSize}px Arial`;
+      lines = wrapTextByWidth(ctx, text, maxWidth);
+      return {
+        fontSize: minFontSize,
+        lines: lines.slice(0, 7),
+        lineHeight: Math.round(minFontSize * 1.18)
+      };
+    }
+
+    function drawQuoteText() {
+      const fallback = 'Thomas ist ein Macher, der ganz genau weiss wo im Gewerbe und auch bei den Familien der Schuh drückt!';
+      const rawText = (inputQuote.value || fallback).trim();
+      const text = rawText || fallback;
+
+      ctx.save();
+      ctx.fillStyle = '#004289';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'top';
+
+      const maxWidth = QUOTE_BOX.w;
+      const maxHeight = QUOTE_BOX.h;
+
+      const fitted = fitQuoteText(text, maxWidth, maxHeight);
+
+      ctx.font = `700 ${fitted.fontSize}px Arial`;
+
+      fitted.lines.forEach((line, index) => {
+        ctx.fillText(line, QUOTE_BOX.x, QUOTE_BOX.y + index * fitted.lineHeight);
+      });
+
+      ctx.restore();
+    }
+
+    function drawCircularUserImage() {
+      const C = SUPPORTER_CIRCLE;
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(C.cx, C.cy, C.r, 0, Math.PI * 2);
+      ctx.closePath();
+      ctx.clip();
+
+      const scale = baseScale * zoom;
+      const w = userImg.naturalWidth * scale;
+      const h = userImg.naturalHeight * scale;
+      const x = (C.cx - w / 2) + offsetX;
+      const y = (C.cy - h / 2) + offsetY;
+
+      ctx.drawImage(userImg, x, y, w, h);
+      ctx.restore();
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(C.cx, C.cy, C.r + SUPPORTER_BORDER.width / 2, 0, Math.PI * 2);
+      ctx.lineWidth = SUPPORTER_BORDER.width;
+      ctx.strokeStyle = SUPPORTER_BORDER.color;
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function drawSupporter() {
+      if (userImg) {
+        drawCircularUserImage();
+      }
+
+      const name = (inputName.value || 'Vorname Nachname').trim() || 'Vorname Nachname';
+      const role = (inputRole.value || 'Funktion/Ergänzend').trim() || 'Funktion/Ergänzend';
+
+      ctx.save();
+      ctx.fillStyle = '#004289';
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'alphabetic';
+
+      const nameX = 33;
+      const nameY = 900;
+
+      ctx.font = '700 36px Arial';
+      ctx.fillText(name, nameX, nameY);
+
+      ctx.font = '400 28px Arial';
+      ctx.fillText(role, nameX, nameY + 44);
+
+      ctx.restore();
+    }
+
+    function render() {
+      try {
+        ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
+
+        if (bgLoaded && bgImg.complete && bgImg.naturalWidth > 0) {
+          ctx.drawImage(bgImg, 0, 0, CANVAS_W, CANVAS_H);
+        } else {
+          ctx.fillStyle = '#efc987';
+          ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+        }
+
+        drawQuoteText();
+        drawSupporter();
+      } catch (err) {
+        console.error(err);
+        setStatus('Fehler beim Zeichnen: ' + err.message);
+      }
+    }
+
+    function isIOSDevice() {
+      return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    }
+
+    function isEmbedded() {
+      try {
+        return window.self !== window.top;
+      } catch (err) {
+        return true;
+      }
+    }
+
+    function canUseShareFeature() {
+      if (!window.isSecureContext) return false;
+      if (isEmbedded()) return false;
+      if (isIOSDevice()) return false;
+      if (typeof navigator.share !== 'function') return false;
+      if (typeof navigator.canShare !== 'function') return false;
+      if (typeof window.File !== 'function') return false;
+      return true;
+    }
+
+    function updateShareVisibility() {
+      btnShare.style.display = canUseShareFeature() ? 'inline-flex' : 'none';
+    }
+
+    inputPhoto.addEventListener('change', async () => {
+      const file = inputPhoto.files && inputPhoto.files[0];
+      if (!file) return;
+
+      try {
+        userImg = await loadImageFromFile(file);
+        setupInitialTransform();
+
+        zoomEl.disabled = false;
+        btnReset.disabled = false;
+
+        hideStatus();
+        render();
+      } catch (err) {
+        setStatus('Das gewählte Foto konnte nicht geladen werden.');
+      }
+    });
+
+    [inputQuote, inputName, inputRole].forEach(el => {
+      el.addEventListener('input', () => {
+        updateCounters();
+        render();
+      });
+    });
+
+    zoomEl.addEventListener('input', () => {
+      if (!userImg) return;
+
+      const prevZoom = zoom;
+      zoom = parseFloat(zoomEl.value);
+
+      const factor = zoom / prevZoom;
+      offsetX *= factor;
+      offsetY *= factor;
+
+      clampOffsets();
+      render();
+    });
+
+    btnReset.addEventListener('click', () => {
+      if (!userImg) return;
+      setupInitialTransform();
+      render();
+    });
+
+    btnDownload.addEventListener('click', () => {
+      try {
+        const a = document.createElement('a');
+        a.download = 'ThomasAbbt_Testimonial_Banner.png';
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+        hideStatus();
+      } catch (err) {
+        setStatus('Das Banner konnte nicht exportiert werden.');
+      }
+    });
+
+    btnShare.addEventListener('click', async () => {
+      try {
+        const blob = await canvasToBlob(canvas, 'image/png');
+        const file = new File([blob], 'ThomasAbbt_Testimonial_Banner.png', { type: 'image/png' });
+
+        if (navigator.canShare({ files: [file] })) {
+          await navigator.share({
+            files: [file],
+            title: 'Thomas Abbt Testimonial Banner',
+            text: 'Mein persönliches Banner für Thomas Abbt'
+          });
+          hideStatus();
+        } else {
+          btnShare.style.display = 'none';
+          setStatus('Direktes Teilen wird auf diesem Gerät oder Browser nicht unterstützt. Bitte das Banner herunterladen und anschliessend manuell teilen.');
+        }
+      } catch (err) {
+        if (err && err.name === 'AbortError') return;
+        btnShare.style.display = 'none';
+        setStatus('Das Teilen konnte nicht gestartet werden. Bitte das Banner herunterladen und anschliessend manuell teilen.');
+      }
+    });
+
+    canvas.addEventListener('pointerdown', (e) => {
+      if (!userImg) return;
+
+      const p = getCanvasPoint(e);
+      if (!isInsideCircle(p.x, p.y, SUPPORTER_CIRCLE)) return;
+
+      dragging = true;
+      lastX = p.x;
+      lastY = p.y;
+      canvas.setPointerCapture(e.pointerId);
+    });
+
+    canvas.addEventListener('pointermove', (e) => {
+      if (!dragging || !userImg) return;
+
+      const p = getCanvasPoint(e);
+      const dx = p.x - lastX;
+      const dy = p.y - lastY;
+
+      offsetX += dx;
+      offsetY += dy;
+
+      lastX = p.x;
+      lastY = p.y;
+
+      clampOffsets();
+      render();
+    });
+
+    canvas.addEventListener('pointerup', (e) => {
+      dragging = false;
+      try { canvas.releasePointerCapture(e.pointerId); } catch (_) {}
+    });
+
+    canvas.addEventListener('pointercancel', () => {
+      dragging = false;
+    });
+
+    bgImg.onload = () => {
+      bgLoaded = true;
+      hideStatus();
+      render();
+    };
+
+    bgImg.onerror = () => {
+      bgLoaded = false;
+      setStatus('Das Hintergrundbild konnte nicht geladen werden.');
+      render();
+    };
+
+    updateCounters();
+    updateShareVisibility();
+    bgImg.src = BG_URL;
+  </script>
+</body>
+</html>
